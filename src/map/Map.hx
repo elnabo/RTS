@@ -4,15 +4,11 @@ import com.haxepunk.tmx.TmxEntity;
 import com.haxepunk.Scene;
 
 import map.terrain.Terrain;
+import player.Player;
 
 class Map extends Scene
 {
-	private var _map(default, null):Array<Array<Int>>;
 	
-	private var _sizeX(default, null):Int;
-	private var _sizeY(default, null): Int;
-	
-	//~ public function new(sizeX:Int, sizeY:Int, ?random:Bool=true)
 	public function new(fileName:String)
 	{		
 		super();
@@ -23,19 +19,16 @@ class Map extends Scene
 
 		// loads a grid layer named collision and sets the entity type to collidable
 		e.loadMask("collision", "collidable");
+		
+		e.layer = 10;
 
 		add(e);
-
-	}
-	
-	public function loadFromTmx(fileName:String)
-	{
 		
-	}
-	
-	private function setMap(map:Array<Array<Int>>)
-	{
-		_map = map;
+		
+		var p1 = new Player(this);
+		p1.buildTownCenter(50,50);
+		
+
 	}
 
 }
