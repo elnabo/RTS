@@ -12,5 +12,6 @@ class TownCenter extends Building
 		
 		_imageRect = new Rectangle(12, 10, 12+128, 10+128);
 		graphic = new Image(_imagePath, _imageRect);
+		setHitbox(128,128);
 	}
 }
