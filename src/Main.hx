@@ -12,6 +12,7 @@ class Main extends Engine
 		HXP.console.enable();
 //#end
 		HXP.scene = new Map("tiled/init.tmx");
+		//~ HXP.scene.init();
 	}
 
 	public static function main() { new Main(); }

@@ -1,5 +1,7 @@
 package utils;
 
+import player.UserEntity;
+
 import com.haxepunk.Entity;
 import com.haxepunk.utils.Draw;
 
@@ -13,7 +15,7 @@ class Select extends Entity
 	private var _alpha:Float;
 	private var _color:Int;
 	
-	public var _selected(default,null):Array<Entity>;
+	public var _selected(default,null):Array<UserEntity>;
 	
 	private static var _collidable(default,never):Array<String> = ["unit","building"];
 	
@@ -56,7 +58,7 @@ class Select extends Entity
 	
 	private function updateSelected()
 	{
-		_selected = new Array<Entity>();
+		_selected = new Array<UserEntity>();
 		for ( collideType in Select._collidable.iterator())
 		{
 			collideInto(collideType,x,y,_selected);
@@ -66,6 +68,8 @@ class Select extends Entity
 			}
 		}
 	}
+	
+	//~ public function getSelected
 	
 	override public function render():Void
 	{

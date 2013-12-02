@@ -210,12 +210,17 @@
  </tileset>
  <layer name="empty" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1D1KA0EYgOHZGygGNSmsBE9g4yVyDE9hY2GVuwX8idoI2gTBRmy0WPBbssFlMFtINgnxKR6+GWaL3X1hRimlUeYqvIcvVi5v0ezxuQHv99/osVn+0uOoSOmkYb9Y/3dsi7Yei1oMw1Osp2GSZvsDTZbiPFxkLlt6HNct3sJprF9j3odDPZbio0VZmz9b1j2eY54VPx5iP9CjE2Vj/qbq8ZL1eNSj0x5tFvVwX62nSdXjOuZNuA13YRz6enTaIu8yP9+N/74XepkdPVbaBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDt9A0bydGB
+   eJzt1L1Kw1AYgOGTO7BY1Do4Cb0CF2+il5RLFGrrz1Koiwgu0kWHgF8xoSWkGcQ0pT7Dw3cOJ0OSF06eUsobfIQv9q6pRdXj8wDe77/R47D8psdVltJ4y1nW/3cci7Yeu1pMwiLWr+Eh/ezPNemlx3XZ4j3cxPot5mO40ONPrFoUperZouyxjHmbbTzF/lKPThRbs8m6x0utx7MenfZos6uH+6qfJuse05j3YRbm4S6M9Oi0Rb1LdT6I/34ahjUneuy1DQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADH6RuYoNA2
   </data>
  </layer>
  <layer name="collision" width="100" height="100" opacity="0.61">
   <data encoding="base64" compression="zlib">
-   eJzt09EJACAMQ0Fd2+ldoF8FacA7yASPnL3WKcaMqoUec/TIokeWbg/t3uj08KcsemTRI4seWfQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH5wAZEWHsE=
+   eJzt0cENACAMxLCyNtP3CRPQk7ClTJAqAHhnrxOz7heezPMjix9Z/MjiBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwgwaRrQ11
+  </data>
+ </layer>
+ <layer name="wood" width="100" height="100" opacity="0.9">
+  <data encoding="base64" compression="zlib">
+   eJzt0cEJgEAMRcF0q014EXRRxJrNwdM2kBVn4JFr4B8R0bq2oMqcndmV3e/dSz/6N3uMxR5jscdYpmzpWks/AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgO96AHMREoA=
   </data>
  </layer>
 </map>

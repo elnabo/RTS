@@ -1,4 +1,4 @@
-package player.buildings;
+package player.units;
 
 import flash.geom.Rectangle;
 
@@ -6,14 +6,16 @@ import com.haxepunk.graphics.Image;
 
 import player.Player;
 
-class TownCenter extends Building
-{	
+class Peon extends Unit
+{
 	public function new(owner:Player, posX:Int, posY:Int)
 	{
 		super(owner, posX, posY);
 		
-		_width = _height = 128;
-		_imageRect = new Rectangle(12, 10, 12 + _width, 10 + _height);
+		_width = _height = 33;
+		
+		_imagePath += "peon.png";
+		_imageRect = new Rectangle(12, 2, 12+_width, 2+_height);
 		graphic = new Image(_imagePath, _imageRect);
 		setHitbox(_width,_height);
 	}

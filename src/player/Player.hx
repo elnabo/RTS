@@ -1,15 +1,14 @@
 package player;
 
-import player.units.Unit;
-
 import player.buildings.Building;
 import player.buildings.TownCenter;
 
+import player.units.Peon;
+import player.units.Unit;
+
 import com.haxepunk.HXP;
 
-
-import map.Map;
-
+import map.PlayableMap;
 
 enum Race
 {
@@ -23,7 +22,7 @@ class Player
 	
 	private var id(null,null):Int;
 
-	private var _scene:Map;
+	public var _scene:PlayableMap;
 
 	public var _name(default,null):String;
 	public var _race(default,null):Race;
@@ -35,7 +34,7 @@ class Player
 	private var _buildings:Array<Building>;
 	private var _units:Array<Unit>;
 	
-	public function new(scene:Map, ?name:String, ?race:Race, ?team:Int, ?color:Array<Int>)
+	public function new(scene:PlayableMap, ?name:String, ?race:Race, ?team:Int, ?color:Array<Int>)
 	{
 		id = count;
 		count++;
@@ -56,6 +55,12 @@ class Player
 	{
 		_buildings.push(new TownCenter(this,posX,posY));
 		_scene.add(_buildings[_buildings.length - 1]);
+	}
+	
+	public function buildPeon(posX:Int, posY:Int)
+	{
+		_units.push(new Peon(this,posX,posY));
+		_scene.add(_units[_units.length - 1]);
 	}
 	
 }

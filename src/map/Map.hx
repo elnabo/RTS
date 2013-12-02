@@ -1,77 +1,64 @@
 package map;
 
-import haxe.ds.StringMap;
-
 import com.haxepunk.Entity;
+import com.haxepunk.HXP;
 import com.haxepunk.Scene;
-import com.haxepunk.tmx.TmxEntity;
-import com.haxepunk.utils.Draw;
-import com.haxepunk.utils.Input;
+import com.haxepunk.graphics.Tilemap;
 
-import map.terrain.Terrain;
-
+import map.PlayableMap;
+import map.terrain.Wood;
 import player.Player;
-
+import ui.MapMenu;
 import utils.Select;
 
 class Map extends Scene
 {
+	public var _background:PlayableMap;
+	public var _menu:MapMenu;
 	
 	public function new(fileName:String)
 	{		
 		super();
 		
-		var e = new TmxEntity(fileName);
-
-		// load layers named bottom, main, top with the appropriate tileset
-		e.loadGraphic("gfx/tileset.png", ["empty"]);
-
-		// loads a grid layer named collision and sets the entity type to collidable
-		e.loadMask("collision", "collidable");
+		_background = new PlayableMap(fileName);
+		add(_background);
 		
-		e.layer = 10;
-
-		add(e);
+		_menu = new MapMenu(HXP.windowWidth - MapMenu._width, HXP.windowHeight - MapMenu._height);
+		add(_menu);
+	}
+	
+	override public function begin()
+	{
+		drawWoods();
 		
+		var p1 = new Player(_background);
+		p1.buildTownCenter(150,150);
+		p1.buildPeon(300,200);
+	}
+	
+	private function drawWoods()
+	{
+		var map = _background.map;
+		var woods = map.layers.get("wood");
 		
-		var p1 = new Player(this);
-		p1.buildTownCenter(50,50);
+		var spacing = map.getTileMapSpacing("wood");
+		var tilemap = new Tilemap(_background._graphism, map.fullWidth, map.fullHeight, map.tileWidth, map.tileHeight,spacing, spacing);
 		
-		Draw.resetTarget();
+		var gid;
+		
+		for (row in 0...woods.height)
+			{
+				for (col in 0...woods.width)
+				{
+					gid = woods.tileGIDs[row][col] - 1;
+					if (gid < 102 || gid > 141 || gid == 126) continue;
+					add(new Wood(col * tilemap.tileWidth, row * tilemap.tileHeight ,gid,_background._graphism,tilemap));
+				}
+			}
 	}
 	
 	override public function update() 
 	{
 		super.update();
-		handleMouse();
 	}
-	
-	private function handleMouse()
-	{
-		if ( Input.mousePressed )
-		{
-			if (_select != null)
-			{
-				remove(_select);
-			}
-			_select = new Select(Input.mouseX, Input.mouseY);
-			add(_select);
-		}
-		
-		if ( Input.mouseDown )
-		{
-			_select.updatePos(Input.mouseX, Input.mouseY);
-		}
-		
-		if ( Input.mouseReleased && _select != null )
-		{
-			_select._selected;
-			remove(_select);
-			_select = null;
-		}
-	}
-	
-	private var _select:Select = null;
-	//~ private var _selected:StringMap<Array<Entity>>;
-
 }

@@ -1,16 +1,27 @@
 package player.units;
 
-import player.Player;
-import com.haxepunk.Entity;
+import com.haxepunk.HXP;
 
-class Unit extends Entity
+import flash.geom.Rectangle;
+
+import player.UserEntity;
+
+class Unit extends UserEntity
 {
-	private var _owner:Player;
+	private var _speed:Float = 10.0;
 	
-	public function new(owner:Player)
+	public function new(owner:Player, posX:Int, posY:Int)
 	{
-		super();
-		_owner = owner;
+		super(owner,posX,posY);
+
+		layer = 4;
+		type = "unit";
+		
 	}
 	
+	override public function goTo(toX:Int, toY:Int)
+	{
+		x = toX - Std.int(_width / 2);
+		y = toY - Std.int(_height / 2);
+	}
 }
