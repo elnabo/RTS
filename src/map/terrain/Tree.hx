@@ -49,7 +49,7 @@ class Tree extends Entity
 		graphic = new Image(imagePath,new Rectangle(x,y,width,height));
 		
 		layer = 9;
-		type = "wood";
+		type = "tree";
 	}
 	
 	/**
@@ -69,8 +69,16 @@ class Tree extends Entity
 		
 		if (quantity <= 0)
 		{
+			destroy();
 		}
 	}
 	
+	/**
+	 * Destroy the tree.
+	 */
+	private function destroy()
+	{
+		HXP.scene.remove(this);
+	}
 	
 }

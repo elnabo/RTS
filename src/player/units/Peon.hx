@@ -4,13 +4,16 @@ import flash.geom.Rectangle;
 
 import com.haxepunk.graphics.Image;
 
+import map.terrain.Tree;
+
 /**
  * Represent a peon.
  */
 class Peon extends Unit
 {
 	/** Max ressource capacity. */
-	public var maxCapacity(default,null):Int = 10;
+	public var maxCapacity(default,null):Int = 200;
+	//~ public var maxCapacity(default,null):Int = 10;
 	/** How much wood harvested per tick. */
 	public var woodHarvestSpeed(default,null):Int = 1;
 
@@ -64,5 +67,20 @@ class Peon extends Unit
 			storage = [0,0];
 		}
 		storage[ressource] += quantity;
+	}
+	
+	/** 
+	 * 
+	 */
+	override private function testCollision()
+	{
+		var trees:Array<Tree> = new Array<Tree>();
+		collideInto("tree",x,y,trees);
+		
+		if (trees.length > 0)
+		{
+			trees[0].beHarvested(this);
+			trace(storage);
+		}
 	}
 }
