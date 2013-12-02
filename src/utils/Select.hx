@@ -5,20 +5,39 @@ import player.UserEntity;
 import com.haxepunk.Entity;
 import com.haxepunk.utils.Draw;
 
+/**
+ * Simple entities selector.
+ */
 class Select extends Entity
 {
+	/** Origin x of the selector. */
 	public var _startX:Int;
+	/** Origin y of the selector. */
 	public var _startY:Int;
+	/** Other x extremity of the selector. */
 	public var _bottomX:Int;
+	/** Other y extremity of the selector. */
 	public var _bottomY:Int;
 	
+	/** Alpha value of the inside of the selector. */
 	private var _alpha:Float;
+	/** RGB color of the border of the selector. */
 	private var _color:Int;
 	
+	/** Selected entities. */
 	public var _selected(default,null):Array<UserEntity>;
 	
+	/** Type of entities catchable by the selector. */
 	private static var _collidable(default,never):Array<String> = ["unit","building"];
 	
+	/**
+	 * Create a new selector.
+	 * 
+	 * @param newX Start x position of the selector.
+	 * @param newY Start y position of the selector.
+	 * @param color RGB color of the border.
+	 * @param alpha Alpha value of the inside of the selector.
+	 */
 	public function new(newX:Int, newY:Int, ?color:Int=0xFF0000, ?alpha:Float=0.4)
 	{
 		super(newX,newY);
@@ -39,6 +58,12 @@ class Select extends Entity
 		layer = 1;
 	}
 	
+	/**
+	 * Update the selector and its selection.
+	 * 
+	 * @param x The new extremity. 
+	 * @param y The new extremity. 
+	 */
 	public function updatePos(x:Int, y:Int)
 	{
 		_bottomX = x;
@@ -56,6 +81,9 @@ class Select extends Entity
 		updateSelected();
 	}
 	
+	/**
+	 * Update the selection.
+	 */
 	private function updateSelected()
 	{
 		_selected = new Array<UserEntity>();
@@ -69,8 +97,9 @@ class Select extends Entity
 		}
 	}
 	
-	//~ public function getSelected
-	
+	/**
+	 * Render the selector.
+	 */	
 	override public function render():Void
 	{
 		super.render();

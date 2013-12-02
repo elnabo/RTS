@@ -1,5 +1,8 @@
 package map.terrain;
 
+/**
+ * Not used
+ */
 enum Type
 {
 	// 
@@ -16,7 +19,9 @@ enum Type
 	Unit;
 }
 
-
+/**
+ * Not used
+ */
 class Terrain
 {
 }
