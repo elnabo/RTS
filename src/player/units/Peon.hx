@@ -3,6 +3,7 @@ package player.units;
 import flash.geom.Rectangle;
 
 import com.haxepunk.graphics.Image;
+import com.haxepunk.HXP;
 
 import map.terrain.Tree;
 import player.buildings.Building;
@@ -18,10 +19,13 @@ class Peon extends Unit
 	//~ public var maxCapacity(default,null):Int = 10;
 	/** How much wood harvested per tick. */
 	public var woodHarvestSpeed(default,null):Int = 1;
-
+	/** */
+	private var _lastHarvest:Float;
+	
 	// Gold, Wood
 	/** How much ressource does he hold. */
 	public var storage:Array<Int>;
+	
 	
 	/**
 	 * Create a peon.
@@ -42,6 +46,7 @@ class Peon extends Unit
 		setHitbox(_width,_height);
 		
 		storage = [0,0];
+		_lastHarvest = woodHarvestSpeed;
 	}
 	
 	/**
@@ -71,20 +76,30 @@ class Peon extends Unit
 		storage[ressource] += quantity;
 	}
 	
+	override public function update()
+	{
+		_lastHarvest -= HXP.elapsed;
+		super.update();
+	}
+	
 	/** 
 	 * 
 	 */
 	override private function testCollision()
 	{
-		var trees:Array<Tree> = new Array<Tree>();
-		collideInto("tree",x,y,trees);
-		
-		if (trees.length > 0)
+		if (_lastHarvest <= 0)
 		{
-			trees[0].beHarvested(this);
-			trace(storage);
+			var trees:Array<Tree> = new Array<Tree>();
+			collideInto("tree",x,y,trees);
 			
-			return ;
+			if (trees.length > 0)
+			{
+				trees[0].beHarvested(this);
+				trace(storage);
+				_lastHarvest = woodHarvestSpeed;
+				
+				return ;
+			}
 		}
 		
 		var buildings:Array<Building> = new Array<Building>();
