@@ -5,6 +5,8 @@ import flash.geom.Rectangle;
 import com.haxepunk.graphics.Image;
 
 import map.terrain.Tree;
+import player.buildings.Building;
+import player.buildings.TownCenter;
 
 /**
  * Represent a peon.
@@ -12,7 +14,7 @@ import map.terrain.Tree;
 class Peon extends Unit
 {
 	/** Max ressource capacity. */
-	public var maxCapacity(default,null):Int = 200;
+	public var maxCapacity(default,null):Int = 10;
 	//~ public var maxCapacity(default,null):Int = 10;
 	/** How much wood harvested per tick. */
 	public var woodHarvestSpeed(default,null):Int = 1;
@@ -81,6 +83,20 @@ class Peon extends Unit
 		{
 			trees[0].beHarvested(this);
 			trace(storage);
+			
+			return ;
+		}
+		
+		var buildings:Array<Building> = new Array<Building>();
+		collideInto("building",x,y,buildings);
+		
+		if (buildings.length > 0)
+		{
+			if (Std.is(buildings[0], TownCenter) && buildings[0].isMine(this))
+			{
+				_owner.moreRessource(storage);
+				storage = [0,0];
+			}
 		}
 	}
 }

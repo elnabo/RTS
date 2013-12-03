@@ -6,9 +6,9 @@ import com.haxepunk.Scene;
 import com.haxepunk.graphics.Tilemap;
 
 import map.GameMap;
+import map.MapMenu;
 import map.terrain.Tree;
 import player.Player;
-import ui.MapMenu;
 import utils.Select;
 
 /**
@@ -20,6 +20,9 @@ class Map extends Scene
 	public var _gameMap:GameMap;
 	/** The menu of the game. */
 	public var _menu:MapMenu;
+	
+	/** List of player. */
+	public var _players(default,null):Array<Player>;
 	
 	/**
 	 * Create a new map of the game.
@@ -35,6 +38,9 @@ class Map extends Scene
 		
 		_menu = new MapMenu(HXP.windowWidth - MapMenu._width, HXP.windowHeight - MapMenu._height);
 		add(_menu);
+		
+		_players = new Array<Player>();
+		_players.push(new Player(_gameMap));
 	}
 	
 	/**
@@ -44,9 +50,8 @@ class Map extends Scene
 	{
 		drawWoods();
 		
-		var p1 = new Player(_gameMap);
-		p1.buildTownCenter(150,150);
-		p1.buildPeon(300,200);
+		_players[0].buildTownCenter(150,150);
+		_players[0].buildPeon(300,200);
 	}
 	
 	/**

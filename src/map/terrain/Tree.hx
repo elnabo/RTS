@@ -50,6 +50,8 @@ class Tree extends Entity
 		
 		layer = 9;
 		type = "tree";
+		
+		setHitbox(32,32);
 	}
 	
 	/**

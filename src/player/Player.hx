@@ -28,7 +28,7 @@ class Player
 	private static var count(null, null):Int = 0;
 	
 	/** Id of the player. */
-	private var id(null,null):Int;
+	public var id(default,null):Int;
 
 	/** Scene where the player is. */
 	public var _scene:GameMap;
@@ -42,9 +42,13 @@ class Player
 	/** Color of the player. */
 	public var _color(default,null):Array<Int>;
 	
-	// [Gold, Wood, Food]
+	// [Gold, Wood]
 	/** Ressources of the player. */
-	private var _ressources:Array<Int>;
+	public var _ressources(default,null):Array<Int>;
+	/** Population max */
+	public var _maxPopulation(default,null):Int = 100;
+	/** Current population */
+	public var _curPopulation(default,null):Int;
 	/** Buildings of the player. */
 	private var _buildings:Array<Building>;
 	/** Units of the player. */
@@ -70,9 +74,10 @@ class Player
 		_race = (race != null) ? race : Race.Human;
 		_team = (team != null) ? team : id;
 		
-		_ressources = [0,0,0];
+		_ressources = [0,0];
 		_buildings = new Array<Building>();
 		_units = new Array<Unit>();
+		_curPopulation = 0;
 		
 	}
 	
@@ -92,6 +97,18 @@ class Player
 	{
 		_units.push(new Peon(this,posX,posY));
 		_scene.add(_units[_units.length - 1]);
+	}
+	
+	public function moreRessource(ressources:Array<Int>)
+	{
+		if (ressources.length != 2)
+		{
+			return;
+		}
+		for ( i in 0...ressources.length )
+		{
+			_ressources[i] += ressources[i];
+		}
 	}
 	
 }

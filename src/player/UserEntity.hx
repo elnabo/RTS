@@ -10,7 +10,7 @@ import com.haxepunk.Entity;
 class UserEntity extends Entity
 {
 	/** The owner of the entity. */
-	private var _owner:Player;
+	private var _owner(default,null):Player;
 	
 	/** Width of the entity. */
 	private var _width(default,null):Int;
@@ -56,6 +56,16 @@ class UserEntity extends Entity
 	public function onSelect()
 	{
 		trace(_imagePath);
+	}
+	
+	public function isMine(e:UserEntity):Bool
+	{
+		return _owner.id == e._owner.id;
+	}
+	
+	public function isFriendly(e:UserEntity):Bool
+	{
+		return _owner._team == e._owner._team;
 	}
 	
 }
