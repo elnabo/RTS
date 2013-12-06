@@ -34,12 +34,15 @@ class UserEntity extends Entity
 		super(x,y);
 		_owner = owner;
 		
-		switch(owner._race)
+		if (_owner != null)
 		{
-			case Human:
-				_imagePath += "human/";
-			case Orc:
-				_imagePath += "orc/";
+			switch(owner._race)
+			{
+				case Human:
+					_imagePath += "human/";
+				case Orc:
+					_imagePath += "orc/";
+			}
 		}
 	}
 	

@@ -6,6 +6,7 @@ import com.haxepunk.graphics.Image;
 import com.haxepunk.HXP;
 
 import map.terrain.Tree;
+import map.terrain.GoldMine;
 import player.buildings.Building;
 import player.buildings.TownCenter;
 
@@ -15,10 +16,14 @@ import player.buildings.TownCenter;
 class Peon extends Unit
 {
 	/** Max ressource capacity. */
-	public var maxCapacity(default,null):Int = 10;
+	public var maxCapacity(default,null):Array<Int>;
 	//~ public var maxCapacity(default,null):Int = 10;
 	/** How much wood harvested per tick. */
 	public var woodHarvestSpeed(default,null):Int = 1;
+	/** How much wood harvested per tick. */
+	public var goldHarvestSpeed(default,null):Int = 2;
+	
+	private var _harvestTime(default,never):Float = 0.5;
 	/** */
 	private var _lastHarvest:Float;
 	
@@ -45,8 +50,9 @@ class Peon extends Unit
 		graphic = new Image(_imagePath, _imageRect);
 		setHitbox(_width,_height);
 		
+		maxCapacity = [10,10];
 		storage = [0,0];
-		_lastHarvest = woodHarvestSpeed;
+		_lastHarvest = _harvestTime;
 	}
 	
 	/**
@@ -58,7 +64,7 @@ class Peon extends Unit
 	 */
 	public function getStorageCapacity(ressource:Int):Int
 	{
-		return maxCapacity - storage[ressource];
+		return maxCapacity[ressource] - storage[ressource];
 	}
 	
 	/**
@@ -95,10 +101,23 @@ class Peon extends Unit
 			if (trees.length > 0)
 			{
 				trees[0].beHarvested(this);
-				trace(storage);
-				_lastHarvest = woodHarvestSpeed;
+				_lastHarvest = _harvestTime;
 				
 				return ;
+			}
+			
+			if (storage[0] < maxCapacity[0])
+			{
+				var goldMines:Array<GoldMine> = new Array<GoldMine>();
+				collideInto("goldMine",x,y,goldMines);
+			
+				if (goldMines.length > 0)
+				{
+					goldMines[0].beHarvested(this);
+					_lastHarvest = _harvestTime;
+				
+					return ;
+				}	
 			}
 		}
 		

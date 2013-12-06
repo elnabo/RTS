@@ -8,6 +8,7 @@ import com.haxepunk.graphics.Tilemap;
 import map.GameMap;
 import map.MapMenu;
 import map.terrain.Tree;
+import map.terrain.GoldMine;
 import player.Player;
 import utils.Select;
 
@@ -52,6 +53,9 @@ class Map extends Scene
 		
 		_players[0].buildTownCenter(150,150);
 		_players[0].buildPeon(300,200);
+		
+		trace("help");
+		add(new GoldMine(500,0));
 	}
 	
 	/**
