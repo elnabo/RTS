@@ -7,6 +7,7 @@ import com.haxepunk.HXP;
 
 import map.terrain.Tree;
 import map.terrain.GoldMine;
+import player.UserEntityGraphics;
 import player.buildings.Building;
 import player.buildings.TownCenter;
 
@@ -26,6 +27,9 @@ class Peon extends Unit
 	private var _harvestTime(default,never):Float = 0.5;
 	/** */
 	private var _lastHarvest:Float;
+	
+	/** */
+	private static var buildable:Array<Class<Building>> = [TownCenter];
 	
 	// Gold, Wood
 	/** How much ressource does he hold. */
@@ -47,7 +51,8 @@ class Peon extends Unit
 		
 		_imagePath += "peon.png";
 		_imageRect = new Rectangle(12, 2, 12+_width, 2+_height);
-		graphic = new Image(_imagePath, _imageRect);
+		//~ graphic = new Image(_imagePath, _imageRect);
+		graphic = new UserEntityGraphics(new Image(_imagePath, _imageRect),100);
 		setHitbox(_width,_height);
 		
 		maxCapacity = [10,10];
@@ -115,7 +120,10 @@ class Peon extends Unit
 				{
 					goldMines[0].beHarvested(this);
 					_lastHarvest = _harvestTime;
-				
+					if (_selected)
+					{
+						_owner.unselect(this);
+					}
 					return ;
 				}	
 			}
@@ -126,7 +134,7 @@ class Peon extends Unit
 		
 		if (buildings.length > 0)
 		{
-			if (Std.is(buildings[0], TownCenter) && buildings[0].isMine(this))
+			if (Std.is(buildings[0], TownCenter) && buildings[0].isMine())
 			{
 				_owner.moreRessource(storage);
 				storage = [0,0];

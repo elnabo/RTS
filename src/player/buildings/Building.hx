@@ -9,6 +9,8 @@ import player.UserEntity;
  */
 class Building extends UserEntity
 {	
+	
+	public static var cost(default,never):Array<Int> = [100,0];
 	/**
 	 * Create a building.
 	 * 
@@ -24,5 +26,23 @@ class Building extends UserEntity
 		
 		layer = 5;
 		type = "building";
+	}
+	
+	/**
+	 * Default action when selected.
+	 */
+	override public function onSelect()
+	{
+		cast(graphic,UserEntityGraphics).showHealthBar();
+		super.onSelect();
+	}
+	
+	/**
+	 * Default action when deselected.
+	 */
+	override public function onDeselect()
+	{
+		cast(graphic,UserEntityGraphics).hideHealthBar();
+		super.onDeselect();
 	}
 }

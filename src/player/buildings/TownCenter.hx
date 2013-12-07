@@ -5,6 +5,7 @@ import flash.geom.Rectangle;
 import com.haxepunk.graphics.Image;
 
 import player.Player;
+import player.UserEntityGraphics;
 import player.units.Peon;
 
 /**
@@ -25,7 +26,7 @@ class TownCenter extends Building
 		
 		_width = _height = 128;
 		_imageRect = new Rectangle(12, 10, 12 + _width, 10 + _height);
-		graphic = new Image(_imagePath, _imageRect);
+		graphic = new UserEntityGraphics(new Image(_imagePath, _imageRect),100);
 		setHitbox(_width,_height);
 	}
 	

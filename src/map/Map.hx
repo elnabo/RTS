@@ -25,6 +25,9 @@ class Map extends Scene
 	/** List of player. */
 	public var _players(default,null):Array<Player>;
 	
+	/** The player of the client. */
+	public var _clientPlayer(default,null):Player;
+	
 	/**
 	 * Create a new map of the game.
 	 * 
@@ -37,11 +40,15 @@ class Map extends Scene
 		_gameMap = new GameMap(fileName);
 		add(_gameMap);
 		
-		_menu = new MapMenu(HXP.windowWidth - MapMenu._width, HXP.windowHeight - MapMenu._height);
-		add(_menu);
+		//~ _menu = new MapMenu(HXP.windowWidth - MapMenu._width, HXP.windowHeight - MapMenu._height);
+		//~ add(_menu);
 		
-		_players = new Array<Player>();
-		_players.push(new Player(_gameMap));
+		//~ _players = new Array<Player>();
+		//~ var p = new Player();
+		//~ add(p);
+		//~ _players.push(p);
+		//~ 
+		//~ _clientPlayer = _players[0];
 	}
 	
 	/**
@@ -49,12 +56,24 @@ class Map extends Scene
 	 */
 	override public function begin()
 	{
+		//~ _gameMap = new GameMap(fileName);
+		//~ add(_gameMap);
+		
+		_players = new Array<Player>();
+		var p = new Player();
+		p.setClient();
+		add(p);
+		_players.push(p);
+		
+		_clientPlayer = _players[0];
+		_menu = new MapMenu(HXP.windowWidth - MapMenu._width, HXP.windowHeight - MapMenu._height);
+		add(_menu);
+		
 		drawWoods();
 		
 		_players[0].buildTownCenter(150,150);
 		_players[0].buildPeon(300,200);
 		
-		trace("help");
 		add(new GoldMine(500,0));
 	}
 	

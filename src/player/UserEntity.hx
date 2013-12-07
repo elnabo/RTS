@@ -3,6 +3,9 @@ package player;
 import flash.geom.Rectangle;
 
 import com.haxepunk.Entity;
+import com.haxepunk.HXP;
+
+import map.Map;
 
 /**
  * Abstract class for building or units.
@@ -21,6 +24,9 @@ class UserEntity extends Entity
 	private var _imageRect:Rectangle;
 	/** Path to the tileset. */
 	private var _imagePath:String = "gfx/";
+	
+	/** Is the entity selected */
+	private var _selected:Bool = false;
 	
 	/**
 	 * Create a new entity.
@@ -58,17 +64,31 @@ class UserEntity extends Entity
 	 */
 	public function onSelect()
 	{
-		trace(_imagePath);
+		_selected = true;
 	}
 	
-	public function isMine(e:UserEntity):Bool
+	/**
+	 * Default action when deselected.
+	 */
+	public function onDeselect()
 	{
-		return _owner.id == e._owner.id;
+		_selected = false;
 	}
 	
-	public function isFriendly(e:UserEntity):Bool
+	public function isMine():Bool
 	{
-		return _owner._team == e._owner._team;
+		return _owner.id == cast(HXP.scene,Map)._clientPlayer.id;
+	}
+	
+	public function isFriendly():Bool
+	{
+		return _owner._team == cast(HXP.scene,Map)._clientPlayer._team;
+	}
+	
+	public function destroy()
+	{
+		cast(HXP.scene,Map)._clientPlayer.unselect(this);
+		HXP.scene.remove(this);
 	}
 	
 }

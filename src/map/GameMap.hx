@@ -41,67 +41,6 @@ class GameMap extends TmxEntity
 	}
 	
 	/**
-	 * Updates the Entity.
-	 */
-	override public function update() 
-	{
-		super.update();
-		handleMouse();
-	}
-	
-	/**
-	 * Handle mouse activity on the game map.
-	 */
-	private function handleMouse()
-	{
-		// On left click start a selection
-		if ( Input.mousePressed )
-		{
-			if (_select != null)
-			{
-				getSelected();
-			}
-			_select = new Select(Input.mouseX, Input.mouseY);
-			HXP.scene.add(_select);
-		}
-		
-		// Update the selection while the left button is down.
-		if ( Input.mouseDown )
-		{
-			_select.updatePos(Input.mouseX, Input.mouseY);
-		}
-		
-		// Set the selection on release
-		if ( Input.mouseReleased && _select != null )
-		{
-			getSelected();
-		}
-		
-		// Right click mean movement
-		if ( Input.rightMouseReleased && (_selected.length > 0) )
-		{
-			for ( e in _selected.iterator())
-		{
-			e.goTo(Input.mouseX, Input.mouseY);
-		}
-		}
-	}
-	
-	/**
-	 * Get the selected entities.
-	 */
-	private function getSelected()
-	{
-		_selected = _select._selected;
-		HXP.scene.remove(_select);
-		_select = null;
-		for ( e in _selected.iterator())
-		{
-			e.onSelect();
-		}
-	}
-	
-	/**
 	 * Add the entity to the map.
 	 * 
 	 * @param e The entity.
@@ -127,10 +66,10 @@ class GameMap extends TmxEntity
 		return e;
 	}
 	
-	/** The selector */
-	private var _select:Select = null;
-	
-	/** The selected entities */
-	private var _selected:Array<UserEntity>;
+	//~ /** The selector */
+	//~ private var _select:Select = null;
+	//~ 
+	//~ /** The selected entities */
+	//~ private var _selected:Array<UserEntity>;
 
 }

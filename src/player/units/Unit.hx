@@ -56,4 +56,22 @@ class Unit extends UserEntity
 	{
 	}
 	
+	/**
+	 * Default action when selected.
+	 */
+	override public function onSelect()
+	{
+		cast(graphic,UserEntityGraphics).showHealthBar();
+		super.onSelect();
+	}
+	
+	/**
+	 * Default action when deselected.
+	 */
+	override public function onDeselect()
+	{
+		cast(graphic,UserEntityGraphics).hideHealthBar();
+		super.onDeselect();
+	}
+	
 }

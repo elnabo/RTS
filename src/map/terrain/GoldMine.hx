@@ -79,22 +79,18 @@ class GoldMine extends UserEntity
 		}
 	}
 	
-	/**
-	 * Destroy the goldMine.
-	 */
-	private function destroy()
-	{
-		for (peon in _unitsIn)
-		{
-			peon.visible = true;
-			_unitsIn.remove(peon);
-		}
-		HXP.scene.remove(this);
-	}
-	
 	override public function update()
 	{
 		graphic = (_unitsIn.length == 0) ? _emptyImage : _notEmptyImage;
 		super.update();
+	}
+	
+	override public function destroy()
+	{
+		for (peon in _unitsIn)
+		{
+			peon.visible = true;
+		}
+		super.destroy();
 	}
 }
