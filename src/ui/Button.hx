@@ -2,6 +2,7 @@ package ui;
 
 import com.haxepunk.Entity;
 import com.haxepunk.Graphic;
+import com.haxepunk.HXP;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.utils.Input;
 
@@ -22,6 +23,9 @@ class Button extends Entity
 	 */
 	private static var _height:Int = 25;
 	
+	private var origX:Float;
+	private var origY:Float;
+	
 	/**
 	 * The name of the button.
 	 */
@@ -36,9 +40,11 @@ class Button extends Entity
 	 * @param	height The height.
 	 * @param	graph The graphic.
 	 */
-	public function new (x:Int, y:Int, name:String, graph:Graphic)
+	public function new (x:Float, y:Float, name:String, graph:Graphic)
 	{
 		super(x, y);
+		origX = x;
+		origY = y;
 		_buttonName = name;
 		
 		graphic = graph;
@@ -46,6 +52,11 @@ class Button extends Entity
 		type = "button";
 		
 		layer = 2;
+	}
+	
+	public function updatePos()
+	{
+		moveTo(HXP.camera.x + origX,HXP.camera.y + origY);
 	}
 	
 	/**
@@ -56,7 +67,7 @@ class Button extends Entity
 	{
 		if (Input.mousePressed)
 		{
-			if ((x <= Input.mouseX) && (Input.mouseX <= (x+_width)) &&  (y <= Input.mouseY) && (Input.mouseY <= (y+_height)))
+			if ((x <= HXP.camera.x + Input.mouseX) && (HXP.camera.x + Input.mouseX <= (x+_width)) &&  (y <= HXP.camera.y + Input.mouseY) && (HXP.camera.y + Input.mouseY <= (y+_height)))
 				interact();
 		}
 	}

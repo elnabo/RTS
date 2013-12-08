@@ -22,4 +22,12 @@ class ConstructMenu
 		}
 		
 	}
+	
+	public function updatePos()
+	{
+		for (b in _buttons.iterator())
+		{
+			b.updatePos();
+		}
+	}
 }

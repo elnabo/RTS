@@ -60,7 +60,7 @@ class UserEntity extends Entity
 	/**
 	 * 
 	 */
-	public function goTo(toX:Int, toY:Int)
+	public function goTo(toX:Float, toY:Float)
 	{
 	}
 	

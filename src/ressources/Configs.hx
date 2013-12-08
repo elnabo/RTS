@@ -15,6 +15,9 @@ class Configs
 	public static var tileWidth:Int = 32;
 	public static var tileHeight:Int = 32;	
 		
+	public static var camspeed:Float = 10;
+	public static var scrollRange:Float = 32;
+		
 	public static var raceImagesPath:Array<String> = ["human","orc"];
 	public static var buildingsImage:String = "building.png";
 	

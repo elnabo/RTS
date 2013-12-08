@@ -54,7 +54,8 @@ class Map extends Scene
 		_menu = new MapMenu(HXP.windowWidth - MapMenu._width, HXP.windowHeight - MapMenu._height);
 		add(_menu);
 		
-		Globales.map = this;		
+		Globales.map = this;	
+		Globales.menu = _menu;	
 		Globales.clientPlayer = _players[0];
 		
 		drawWoods();

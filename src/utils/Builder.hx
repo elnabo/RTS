@@ -37,7 +37,7 @@ class Builder extends Entity
 		layer = 4;
 	}
 	
-	public function setTo(x:Int, y:Int)
+	public function setTo(x:Float, y:Float)
 	{
 		var tw = Configs.tileWidth;
 		var th = Configs.tileHeight;

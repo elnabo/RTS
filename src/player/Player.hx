@@ -6,6 +6,7 @@ import player.buildings.Building;
 import player.buildings.TownCenter;
 import player.units.Peon;
 import player.units.Unit;
+import ressources.Configs;
 import ressources.Globales;
 import utils.Select;
 import utils.Builder;
@@ -65,7 +66,7 @@ class Player extends Entity
 	
 	/** The builder */
 	private var _builder:Builder = null;
-	
+		
 	/**
 	 * Create a new player.
 	 * 
@@ -89,7 +90,6 @@ class Player extends Entity
 		_buildings = new Array<Building>();
 		_units = new Array<Unit>();
 		_curPopulation = 0;
-		
 	}
 	
 	public function setClient(val:Bool=true)
@@ -172,15 +172,37 @@ class Player extends Entity
 	 */
 	private function handleMouse()
 	{
-		// Do nothing if not on the game map.
-		if (Input.mouseY >= Globales.map._menu.y)
+		// Set the selection on release
+		if ( Input.mouseReleased && _select != null )
+		{
+			getSelected();
+		}
+		
+		// Update camera position
+		if (Input.mouseX < Configs.scrollRange || Input.mouseX > (HXP.windowWidth - Configs.scrollRange))
+		{
+			var dirX = (Input.mouseX < Configs.scrollRange) ? -1 : 1;
+			HXP.camera.x = HXP.clamp(HXP.camera.x + dirX * Configs.camspeed, 0, 3200 - HXP.windowWidth);
+			Globales.menu.changePos();
+		}
+		
+		if (Input.mouseY < Configs.scrollRange || Input.mouseY > (HXP.windowHeight - Configs.scrollRange))
+		{
+			var dirY = (Input.mouseY < Configs.scrollRange) ? -1 : 1;
+			HXP.camera.y = HXP.clamp(HXP.camera.y + dirY * Configs.camspeed, 0, 3200 - HXP.windowHeight);
+			Globales.menu.changePos();
+		}
+		
+		// Do nothing more if not on the game map.
+		if (HXP.camera.y + Input.mouseY >= Globales.map._menu.y)
 		{
 			return;
 		}
 		
+		// Move the builder
 		if (_builder != null)
 		{
-			_builder.setTo(Input.mouseX, Input.mouseY);
+			_builder.setTo(HXP.camera.x + Input.mouseX, HXP.camera.y + Input.mouseY);
 		}
 		
 		// On left click start a selection
@@ -197,30 +219,24 @@ class Player extends Entity
 			{
 				getSelected();
 			}
-			_select = new Select(Input.mouseX, Input.mouseY);
+			_select = new Select(Std.int(HXP.camera.x) + Input.mouseX, Std.int(HXP.camera.y) + Input.mouseY);
 			HXP.scene.add(_select);
-			//~ constructBuildable(TownCenter, Input.mouseX, Input.mouseY);
 		}
 		
 		// Update the selection while the left button is down.
-		if ( Input.mouseDown )
+		if ( Input.mouseDown && _select != null)
 		{
-			_select.updatePos(Input.mouseX, Input.mouseY);
+			_select.updatePos(Std.int(HXP.camera.x) + Input.mouseX, Std.int(HXP.camera.y) + Input.mouseY);
 		}
 		
-		// Set the selection on release
-		if ( Input.mouseReleased && _select != null )
-		{
-			getSelected();
-		}
 		
 		// Right click mean movement
 		if ( Input.rightMouseReleased && (_selected.length > 0) )
 		{
 			for ( e in _selected.iterator())
-		{
-			e.goTo(Input.mouseX, Input.mouseY);
-		}
+			{
+				e.goTo(HXP.camera.x + Input.mouseX, HXP.camera.y + Input.mouseY);
+			}
 		}
 	}
 	

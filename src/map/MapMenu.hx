@@ -21,10 +21,12 @@ class MapMenu extends Entity
 	private var _menuDisplay:MapMenuDisplay;
 	
 	private var _constructMenu:ConstructMenu;
+	private var _startY:Int;
 	
 	public function new(x:Int, y:Int)
 	{
 		super(x,y);
+		_startY = y;
 		_menuDisplay = new MapMenuDisplay([0,0],0,0);//new Image("gfx/menuBar.png");
 		graphic = _menuDisplay;
 		
@@ -37,11 +39,17 @@ class MapMenu extends Entity
 		layer = 3;
 	}
 	
+	public function changePos()
+	{
+		moveTo(HXP.camera.x, HXP.camera.y + _startY);
+		_constructMenu.updatePos();
+	}
+	
 	override public function update()
 	{
-		// remove hardcoded
 		_menuDisplay.setRessources(Globales.clientPlayer._ressources);
 		_menuDisplay.setPopulation(Globales.clientPlayer._curPopulation,Globales.clientPlayer._maxPopulation);
+		
 		super.update();
 	}
 	
@@ -84,4 +92,8 @@ class MapMenuDisplay extends Graphiclist
 	{
 		_ressourcesDisplay[_ressourcesDisplay.length - 1].text = Std.string(pop) + "/" + Std.string(popMax);
 	}
+	
+	//~ public function updatePos(x:Float, y:Float)
+	//~ {
+	//~ }
 }

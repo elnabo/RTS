@@ -36,10 +36,10 @@ class Unit extends UserEntity
 	 * @param toX Destination x.
 	 * @param toY Destination y.
 	 */
-	override public function goTo(toX:Int, toY:Int)
+	override public function goTo(toX:Float, toY:Float)
 	{
-		x = toX - Std.int(_width / 2);
-		y = toY - Std.int(_height / 2);
+		x = toX - _width / 2;
+		y = toY - _height / 2;
 	}
 	
 	/**
