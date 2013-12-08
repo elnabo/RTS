@@ -29,6 +29,8 @@ class UserEntity extends Entity
 	/** Is the entity selected */
 	private var _selected:Bool = false;
 	
+	private var _version:Int = 0;
+	
 	/**
 	 * Create a new entity.
 	 * 

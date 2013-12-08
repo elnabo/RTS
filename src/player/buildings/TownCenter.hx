@@ -25,12 +25,14 @@ class TownCenter extends Building
 	{
 		super(owner, x, y);
 		
-		_width = Configs.townCenterWidth[1];
-		_height = Configs.townCenterHeight[1];
+		_version = 1;
 		
-		var startX = Configs.townCenterImageStartPos[0][0];
-		var startY = Configs.townCenterImageStartPos[0][1];
-		_imageRect = new Rectangle(startX, startY, startX + Configs.townCenterWidth[0], startY + Configs.townCenterHeight[0]);
+		_width = Configs.townCenterWidth[Configs.townCenterWidth.length -1];
+		_height = Configs.townCenterHeight[Configs.townCenterWidth.length -1];
+		
+		var startX = Configs.townCenterImageStartPos[_version][0];
+		var startY = Configs.townCenterImageStartPos[_version][1];
+		_imageRect = new Rectangle(startX, startY, Configs.townCenterWidth[_version],Configs.townCenterHeight[_version]);
 		
 		graphic = new UserEntityGraphics(new Image(_imagePath, _imageRect),100);
 		setHitbox(_width,_height);

@@ -11,6 +11,7 @@ class Building extends UserEntity
 {	
 	
 	public static var cost(default,never):Array<Int> = [100,0];
+	
 	/**
 	 * Create a building.
 	 * 
