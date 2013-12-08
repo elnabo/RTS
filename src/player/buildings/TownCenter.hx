@@ -14,6 +14,8 @@ import ressources.Configs;
  */
 class TownCenter extends Building
 {	
+	//~ private static var _width = Configs.townCenterWidth[Configs.townCenterWidth.length -1];
+	//~ private static var _height = Configs.townCenterHeight[Configs.townCenterWidth.length -1];
 	/**
 	 * Create a towncenter.
 	 * 
@@ -23,19 +25,20 @@ class TownCenter extends Building
 	 */
 	public function new(owner:Player, x:Int, y:Int)
 	{
-		super(owner, x, y);
-		
 		_version = 1;
+	
+		super(owner, x, y,"TownCenter");
 		
-		_width = Configs.townCenterWidth[Configs.townCenterWidth.length -1];
-		_height = Configs.townCenterHeight[Configs.townCenterWidth.length -1];
 		
-		var startX = Configs.townCenterImageStartPos[_version][0];
-		var startY = Configs.townCenterImageStartPos[_version][1];
-		_imageRect = new Rectangle(startX, startY, Configs.townCenterWidth[_version],Configs.townCenterHeight[_version]);
+		//~ _width = Configs.buildingsWidth["TownCenter"]townCenterWidth[Configs.townCenterWidth.length -1];
+		//~ _height = Configs.townCenterHeight[Configs.townCenterWidth.length -1];
 		
-		graphic = new UserEntityGraphics(new Image(_imagePath, _imageRect),100);
-		setHitbox(_width,_height);
+		//~ var startX = Configs.townCenterImageStartPos[_version][0];
+		//~ var startY = Configs.townCenterImageStartPos[_version][1];
+		//~ _imageRect = new Rectangle(startX, startY, Configs.townCenterWidth[_version],Configs.townCenterHeight[_version]);
+		//~ 
+		//~ graphic = new UserEntityGraphics(new Image(_imagePath, _imageRect),100);
+		//~ setHitbox(_width,_height);
 	}
 	
 	public function storeRessources(e:Peon)

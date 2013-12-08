@@ -31,6 +31,8 @@ class UserEntity extends Entity
 	
 	private var _version:Int = 0;
 	
+	private static var _w:Int;
+	
 	/**
 	 * Create a new entity.
 	 * 
