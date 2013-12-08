@@ -5,6 +5,7 @@ import com.haxepunk.graphics.Image;
 
 import map.Map;
 import player.buildings.Building;
+import ressources.Globales;
 
 class ConstructBuildingButton extends Button
 {
@@ -23,6 +24,6 @@ class ConstructBuildingButton extends Button
 	 */
 	override private function interact() 
 	{ 
-		cast(HXP.scene,Map)._clientPlayer.addBuilder(_buildingWidth, _buildingHeight, Type.resolveClass(_packageName + _buttonName));
+		Globales.clientPlayer.addBuilder(_buildingWidth, _buildingHeight, Type.resolveClass(_packageName + _buttonName));
 	};
 }

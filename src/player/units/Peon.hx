@@ -18,7 +18,6 @@ class Peon extends Unit
 {
 	/** Max ressource capacity. */
 	public var maxCapacity(default,null):Array<Int>;
-	//~ public var maxCapacity(default,null):Int = 10;
 	/** How much wood harvested per tick. */
 	public var woodHarvestSpeed(default,null):Int = 1;
 	/** How much wood harvested per tick. */
@@ -51,7 +50,6 @@ class Peon extends Unit
 		
 		_imagePath += "peon.png";
 		_imageRect = new Rectangle(12, 2, 12+_width, 2+_height);
-		//~ graphic = new Image(_imagePath, _imageRect);
 		graphic = new UserEntityGraphics(new Image(_imagePath, _imageRect),100);
 		setHitbox(_width,_height);
 		

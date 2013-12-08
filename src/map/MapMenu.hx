@@ -10,6 +10,7 @@ import com.haxepunk.graphics.Graphiclist;
 import com.haxepunk.graphics.Image;
 import com.haxepunk.graphics.Text;
 
+import ressources.Globales;
 import ui.ConstructMenu;
 
 class MapMenu extends Entity
@@ -18,7 +19,6 @@ class MapMenu extends Entity
 	public static var _height(default, null):Int = 70;
 	
 	private var _menuDisplay:MapMenuDisplay;
-	private var _map(default,null):Map;
 	
 	private var _constructMenu:ConstructMenu;
 	
@@ -32,18 +32,16 @@ class MapMenu extends Entity
 		
 		_constructMenu = new ConstructMenu([["TownCenter"]],200,y+20);
 		setHitbox(0,0,MapMenu._width,MapMenu._height);
-	}
-	
-	override public function added()
-	{
-		_map = cast(HXP.scene, Map);
+		
+		
+		layer = 3;
 	}
 	
 	override public function update()
 	{
 		// remove hardcoded
-		_menuDisplay.setRessources(_map._players[0]._ressources);
-		_menuDisplay.setPopulation(_map._players[0]._curPopulation,_map._players[0]._maxPopulation);
+		_menuDisplay.setRessources(Globales.clientPlayer._ressources);
+		_menuDisplay.setPopulation(Globales.clientPlayer._curPopulation,Globales.clientPlayer._maxPopulation);
 		super.update();
 	}
 	
@@ -72,7 +70,6 @@ class MapMenuDisplay extends Graphiclist
 		super(_ressourcesDisplay);
 		add(_background);
 		
-		layer = 1;
 	}
 	
 	public function setRessources(ressources:Array<Int>)

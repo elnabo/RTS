@@ -6,6 +6,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.HXP;
 
 import map.Map;
+import ressources.Globales;
 
 /**
  * Abstract class for building or units.
@@ -77,17 +78,17 @@ class UserEntity extends Entity
 	
 	public function isMine():Bool
 	{
-		return _owner.id == cast(HXP.scene,Map)._clientPlayer.id;
+		return _owner.id == Globales.clientPlayer.id;
 	}
 	
 	public function isFriendly():Bool
 	{
-		return _owner._team == cast(HXP.scene,Map)._clientPlayer._team;
+		return _owner._team == Globales.clientPlayer._team;
 	}
 	
 	public function destroy()
 	{
-		cast(HXP.scene,Map)._clientPlayer.unselect(this);
+		Globales.clientPlayer.unselect(this);
 		HXP.scene.remove(this);
 	}
 	

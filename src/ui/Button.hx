@@ -44,6 +44,8 @@ class Button extends Entity
 		graphic = graph;
 		setHitboxTo(this);
 		type = "button";
+		
+		layer = 2;
 	}
 	
 	/**

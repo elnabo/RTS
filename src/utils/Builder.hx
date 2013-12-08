@@ -7,6 +7,7 @@ import com.haxepunk.graphics.Image;
 import map.Map;
 import player.Player;
 import player.buildings.Building;
+import ressources.Configs;
 
 class Builder extends Entity
 {
@@ -38,9 +39,11 @@ class Builder extends Entity
 	
 	public function setTo(x:Int, y:Int)
 	{
-		moveTo(x,y);
+		var tw = Configs.tileWidth;
+		var th = Configs.tileHeight;
+		moveTo(Math.floor(x/tw)*tw, Math.floor(y/th)*th);
 		
-		if (collideTypes(["building","unit","collidable","tree","goldMine"],x,y) == null)
+		if (collideTypes(["building","unit","collidable","tree","goldMine"],this.x,this.y) == null)
 		{
 			graphic = _green;
 			_buildable = true;

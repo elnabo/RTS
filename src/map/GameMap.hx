@@ -65,11 +65,4 @@ class GameMap extends TmxEntity
 		HXP.scene.remove(e);
 		return e;
 	}
-	
-	//~ /** The selector */
-	//~ private var _select:Select = null;
-	//~ 
-	//~ /** The selected entities */
-	//~ private var _selected:Array<UserEntity>;
-
 }

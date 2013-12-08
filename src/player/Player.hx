@@ -6,6 +6,7 @@ import player.buildings.Building;
 import player.buildings.TownCenter;
 import player.units.Peon;
 import player.units.Unit;
+import ressources.Globales;
 import utils.Select;
 import utils.Builder;
 
@@ -172,7 +173,7 @@ class Player extends Entity
 	private function handleMouse()
 	{
 		// Do nothing if not on the game map.
-		if (Input.mouseY >= cast(HXP.scene,Map)._menu.y)
+		if (Input.mouseY >= Globales.map._menu.y)
 		{
 			return;
 		}
