@@ -7,6 +7,7 @@ import map.Map;
 import player.buildings.Building;
 import ressources.Configs;
 import ressources.Globales;
+import utils.ComplexGrid;
 
 class ConstructBuildingButton extends Button
 {
@@ -29,5 +30,6 @@ class ConstructBuildingButton extends Button
 	override private function interact() 
 	{ 
 		Globales.clientPlayer.addBuilder(_buildingWidth, _buildingHeight, Type.resolveClass(_packageName + _buttonName));
+		HXP.scene.typeFirst("collidable").mask = ComplexGrid.getComplexGrid("collidable", ["tree","goldMine","unit","building"],32,32);
 	};
 }

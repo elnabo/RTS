@@ -1,10 +1,18 @@
 package player.units;
 
+//~ import com.haxepunk.Entity;
 import com.haxepunk.HXP;
+import com.haxepunk.Tween;
+import com.haxepunk.masks.Grid;
+import com.haxepunk.tweens.motion.LinearMotion;
+import com.haxepunk.tweens.TweenEvent;
+import com.haxepunk.ai.GridPath;
+import com.haxepunk.ai.PathNode;
 
 import flash.geom.Rectangle;
 
 import player.UserEntity;
+import utils.ComplexGrid;
 
 /**
  * Abstract class representing units.
@@ -12,7 +20,11 @@ import player.UserEntity;
 class Unit extends UserEntity
 {
 	/** Speed of the unit. */
-	private var _speed:Float = 10.0;
+	private var _speed:Float = 200;
+	
+	private var pathTween:LinearMotion;
+	private var targetNode:PathNode;
+	private var path:Array<PathNode>;
 	
 	/**
 	 * Create an unit.
@@ -28,6 +40,14 @@ class Unit extends UserEntity
 		layer = 4;
 		type = "unit";
 		
+		 // tween to handle path movement
+        pathTween = new LinearMotion(moveToNextNode, TweenType.Persist);
+        pathTween.addEventListener(TweenEvent.UPDATE, function(_) {
+            this.x = pathTween.x;
+            this.y = pathTween.y;
+        });
+        addTween(pathTween);
+		
 	}
 	
 	/**
@@ -38,9 +58,24 @@ class Unit extends UserEntity
 	 */
 	override public function goTo(toX:Float, toY:Float)
 	{
-		x = toX - _width / 2;
-		y = toY - _height / 2;
+		var graph = new GridPath(ComplexGrid.getComplexGrid("collidable",["tree"],32,32), {
+			walkDiagonal: true,
+			optimize: LineOfSight
+		});
+		
+        path = graph.search(Std.int(x/32), Std.int(y/32), Std.int(toX/32), Std.int(toY/32));
+  
 	}
+	
+	public function moveToNextNode(?p:Dynamic)
+    {
+        if (path != null && path.length > 0 && !pathTween.active)
+        {
+            targetNode = path.shift();
+            pathTween.setMotionSpeed(x, y, targetNode.worldX, targetNode.worldY, _speed);
+
+        }
+    }
 	
 	/**
 	 * Update unit and test collision.
@@ -48,6 +83,7 @@ class Unit extends UserEntity
 	override public function update()
 	{
 		super.update();
+		moveToNextNode();
 		testCollision();
 	}
 	
